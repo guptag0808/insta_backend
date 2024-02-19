@@ -1,10 +1,12 @@
 const express= require("express")
 const app= express()
+const cors= require("cors")
 const {connection}=require('./db')
 const {userRouter} = require('./routes/auth')
 const {postRouter} = require('./routes/post')
 const PORT= 5000
 
+app.use(cors())
 
 //parsing the req.body 
 app.use(express.json())
@@ -24,5 +26,6 @@ app.listen(PORT,async()=>{
 	}catch(err){
 		console.log(err.message)
 	}
-	console.log("server is running at ",PORT)
+	console.log("server is running at ",PORT)  
 })
+

@@ -1,13 +1,13 @@
-
+ 
 const jwt = require('jsonwebtoken')
-const {UserModel} = require('../models/user')
+const {UserModel} = require('../models/user') 
 const authentication  =async(req,res,next)=>{
 	const token = req.headers.authorization
 	try{
 		if(!token){
 		return	res.send({"msg":"Please Login First"})
 		}
-		var decoded = await jwt.verify(token, 'secret_key')
+		var decoded = jwt.verify(token, 'secret_key')
 		if(decoded){
 			const userId = decoded.userId  
 			const user = await UserModel.findById(userId)

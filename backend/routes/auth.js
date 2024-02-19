@@ -8,8 +8,12 @@ const jwt = require('jsonwebtoken')
 // Signup route
 userRouter.post('/signup', async (req, res) => {
 	const { name, email, password } = req.body;
-  
+        
+	
 	try {
+		if(!name || !email || !password  ){
+			return res.status(422).send({error:"Please add all the fields"})
+		}
 	  // Check if the user with the given email already exists
 	  const existingUser = await UserModel.findOne({ email });
   
@@ -27,8 +31,9 @@ userRouter.post('/signup', async (req, res) => {
   
 	  await user.save();
   
-	  res.status(201).json({ message: 'User created successfully' });
+	  res.status(201).json({ "msg": 'User created successfully' });
 	} catch (error) {
+		console.log(error.message)
 	  res.status(500).json({ error: 'Internal Server Error' });
 	}
   })
@@ -39,23 +44,24 @@ userRouter.post('/signup', async (req, res) => {
   
 	try {
 	  const user = await UserModel.findOne({ email });
-  
+            
 	  if (!user) {
 		return res.status(401).json({ error: 'Invalid email or password' });
-	  }
+	  }	  const passwordMatch = await bcrypt.compare(password, user.password);
+
   
-	  const passwordMatch = await bcrypt.compare(password, user.password);
   
 	  if (!passwordMatch) {
-		return res.status(401).json({ error: 'Invalid email or password' });
+		return res.status(401).json({ error: 'Invalid email or password' });  
 	  }
   
 	  const token = jwt.sign({ userId: user._id }, 'secret_key', {
 		expiresIn: '1h', // Token expires in 1 hour
 	  });
-  
-	  res.status(200).send({ "msg":"Login Successfull","Token":token});
+       const {_id,name}= user
+	  res.status(200).send({ "msg":"Login Successfull","Token":token, user:{_id,name}});
 	} catch (error) {
+		console.log(error.message)
 	  res.status(500).json({ error: error.message});
 	}
   });
