@@ -46,7 +46,7 @@ function Navbar() {
         <Link to={user ? "/" : "/login"} className="brand-logo left">
           InstaFlick
         </Link>
-        <ul id="nav-mobile" className="right hide-on-med-and-down">
+        <ul id="nav-mobile" className="right ">
           {renderList()}
         </ul>
       </div>
