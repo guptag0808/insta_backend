@@ -1,7 +1,7 @@
 const express = require('express')
 const postRouter = express.Router()
 const { PostModel } = require('../models/post')
-const { authentication } = require('../middleware/authentication')
+const { authentication } = require('../middleware/authentication')  
 
 // upload post by login user
 postRouter.post('/createpost', authentication, async (req, res) => {
@@ -71,7 +71,7 @@ postRouter.put("/like/:id", authentication, async (req, res) => {
 		}
 		// Save the updated post to the database
 		await post.save();
-		const allPost = await PostModel.find()
+		const allPost = await PostModel.find().populate("comments.postedBy","name _id").populate("postedBy","name _id")
 		// Send the updated post back to the client
 		res.status(200).send({ "msg": allPost });
 	} catch (err) {
@@ -94,7 +94,7 @@ postRouter.put("/comment/:id", authentication, async (req, res) => {
 		postId,
 		{ $push: { comments: data } },
 		{ new: true } // To get the updated document after the update operation
-	  ).populate("comments.postedBy","name _id")
+	  ).populate("comments.postedBy","name _id").populate("postedBy" ,"name _id")
 	  
        console.log(post)
 	  // Send the updated post with comments populated back to the client
@@ -104,6 +104,70 @@ postRouter.put("/comment/:id", authentication, async (req, res) => {
 	  res.status(500).send('Internal Server Error');
 	}
   });
+  
+  postRouter.delete("/delete/:id", authentication, async (req, res) => {
+	const userId = req.userId;
+	const postId = req.params.id;
+  
+	try {
+	  const post = await PostModel.findById(postId).populate("postedBy", "_id");
+  
+	  if (!post) {
+		return res.status(404).json({ error: "Post not found" });
+	  }
+  
+	  if (userId === post.postedBy._id.toString()) {
+		// Convert post.postedBy._id to a string for comparison
+		await PostModel.findByIdAndDelete(postId);
+		res.status(200).send({ "msg": " deleted successfully" ,"postId":postId});
+	  } else {
+		res.status(403).json({ error: "You are not authorized to delete this post" });
+	  }
+  
+	} catch (err) {
+	  console.error(err.message);
+	  res.status(500).send('Internal Server Error');
+	}
+  });
+  
+//   Delete Comments
+  postRouter.delete("/comment/:postId/:commentId", authentication, async (req, res) => {
+	const userId = req.userId;
+	const postId = req.params.postId; 
+	const commentId = req.params.commentId;
+  
+	try {
+	  const post = await PostModel.findById(postId);
+  
+	  if (!post) {
+		return res.status(404).json({ error: "Post not found" });
+	  }
+  
+	  // Find the comment index in the post's comments array
+	  const commentIndex = post.comments.findIndex(item => item._id == commentId);
+  
+	  if (commentIndex === -1) {
+		return res.status(404).json({ error: "Comment not found" });
+	  }
+  
+	  const comment = post.comments[commentIndex];
+  
+	  if (userId === comment.postedBy._id.toString() || userId === post.postedBy._id.toString()) {
+		// Delete the comment
+		post.comments.splice(commentIndex, 1);
+		await post.save();
+		const allPost = await PostModel.find().populate("postedBy", "_id name").populate("comments.postedBy","name _id")
+		res.status(200).json({ msg: "Comment deleted successfully", "post":allPost});
+	  } else {
+		res.status(403).json({ error: "You are not authorized to delete this comment" });
+	  }
+  
+	} catch (err) {
+	  console.error(err.message);
+	  res.status(500).send('Internal Server Error');
+	}
+  });
+  
   
   
 module.exports = { postRouter }

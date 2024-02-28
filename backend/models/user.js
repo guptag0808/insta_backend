@@ -12,7 +12,19 @@ const userSchema= new mongoose.Schema({
 	password:{
 		type:String,
 		required:true
-	}
+	},
+	followers:[
+		{
+			type:mongoose.Schema.Types.ObjectId,
+		    ref:"User"
+		}
+	],
+	following:[
+		{
+			type:mongoose.Schema.Types.ObjectId,
+		    ref:"User"
+		}
+	]
 },{versionKey: false})
 
 

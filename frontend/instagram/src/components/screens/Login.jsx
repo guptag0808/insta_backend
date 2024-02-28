@@ -8,7 +8,7 @@ function Login() {
   const [password,setPassword] =useState("")
   const {state,dispatch} =useContext(UserContext)
   const navigate = useNavigate();
-  const navigateToLogin = () => {
+  const navigateToHome = () => {
     navigate('/');
   };
   const postFun=()=>{
@@ -30,7 +30,7 @@ function Login() {
         dispatch({type:"USER",payload:data.user})
          localStorage.setItem('Token',data.Token)
          localStorage.setItem('user',JSON.stringify(data.user))
-          navigateToLogin()
+          navigateToHome()
        }
     })
     .catch(err=>{

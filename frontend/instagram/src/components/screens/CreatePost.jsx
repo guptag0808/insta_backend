@@ -72,7 +72,8 @@ function CreatePost() {
 		margin:"20px auto",
 		padding:"20px",
 		textAlign:"center"
-	}}>
+	}}> 
+	    <h4 style={{color:"grey",}}>Upload Your Picture</h4>
 		 <input type="text" placeholder='title' 
 		  value={title}
 		  onChange={(e)=>setTitle(e.target.value)}

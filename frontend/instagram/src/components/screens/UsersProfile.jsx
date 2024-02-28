@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-
-function Profile() {
+import {  useParams } from 'react-router-dom'
+function UserProfile() {
   const [userProfile, setProfile] = useState(null);
- 
-  
+  const [followers,setFollowers]= useState("")
+  const {Id}= useParams()
    
   const user = JSON.parse(localStorage.getItem('user'));
-  const Id= user._id
+ 
 
   useEffect(() => {
     fetch(`http://localhost:5000/user/allPost/${Id}`, {
@@ -22,7 +22,22 @@ function Profile() {
       });
   }, []); // Empty dependency array to run the effect only once on mount
 
- 
+  const followerFun= ()=>{
+    
+      fetch(`http://localhost:5000/user/follow/${Id}`, {
+        method:"PATCH",
+        headers: {
+          'Authorization': localStorage.getItem('Token'),
+        },
+      })    
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          setFollowers(data.follower.followers.length || 1)
+          
+        });
+   
+  }
 
   return (
 <>
@@ -51,8 +66,11 @@ function Profile() {
               <h6>{userProfile.userPosts.length} Post</h6>
               <h6>{userProfile.user.followers.length} Followers</h6>
               <h6>{userProfile.user.following.length} Following</h6>
-            </div>  
-            
+            </div> 
+            <button className="btn waves-effect waves-light"
+         onClick={followerFun} >
+          Follow
+       </button>
             
           
         </div>
@@ -72,4 +90,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default UserProfile;

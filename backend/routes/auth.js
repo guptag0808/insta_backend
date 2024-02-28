@@ -56,7 +56,7 @@ userRouter.post('/signup', async (req, res) => {
 	  }
   
 	  const token = jwt.sign({ userId: user._id }, 'secret_key', {
-		expiresIn: '1h', // Token expires in 1 hour
+		expiresIn: '5h', // Token expires in 1 hour
 	  });
        const {_id,name}= user
 	  res.status(200).send({ "msg":"Login Successfull","Token":token, user:{_id,name}});

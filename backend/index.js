@@ -4,6 +4,7 @@ const cors= require("cors")
 const {connection}=require('./db')
 const {userRouter} = require('./routes/auth')
 const {postRouter} = require('./routes/post')
+const {userProfile} = require("./routes/user")
 const PORT= 5000
 
 app.use(cors())
@@ -13,6 +14,7 @@ app.use(express.json())
 
 app.use("/auth",userRouter)
 app.use("/post",postRouter)
+app.use("/user",userProfile)
 
 app.get("/home",(req,res)=>{
 	res.send('THIS IS HOME PAGE')

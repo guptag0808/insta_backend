@@ -1,7 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
-
+*{
+	font-family: "Micro 5";
+	margin:0%;
+	padding: 0%;
+}
+body{
+	/* background-color: rgb(103, 101, 98); */
+	background-color: rgb(31, 58, 80);
+	/* background-color: rgb(104, 119, 132); */
+}
 .nav-wrapper{
-	background: whitesmoke;
+    background-color: rgb(69, 81, 91);
+
+}.h4-h6{
+	color: aliceblue;
 }
 .brand-logo, h1{
 font-family: 'Grand Hotel', 'cursive';
@@ -19,9 +31,8 @@ font-family: 'Grand Hotel', 'cursive';
  
 }
 
-a{
-	color:black  !important ;
-}
+
+
 .login-span{
   color:blue;
   cursor: pointer;
@@ -38,7 +49,10 @@ a{
 	height: 200px;
 
 }
+#postName{
+	color:black  ;
 
+}
 /* Home section  */
 
 .home-card{
@@ -50,8 +64,12 @@ a{
 .abcd{
 	background-color: 'red' !important ;
 	border: "2 px solid red";
-	
+	cursor: pointer;
 }
 .commentInput{
 	display: flex;
+}
+.deleteComment:hover{
+	float: 'right';
+	cursor: 'pointer'
 }
