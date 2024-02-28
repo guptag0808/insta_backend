@@ -10,7 +10,7 @@ function CreatePost() {
 
    useEffect(()=>{
       if(url){
-		  fetch("http://localhost:5000/post/createpost",{
+		  fetch("https://backend-insta-deploy.onrender.com/post/createpost",{
 		  method:"post",
 		  headers:{
 			"Content-Type":"application/json",

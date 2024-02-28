@@ -9,7 +9,7 @@ function UserProfile() {
  
 
   useEffect(() => {
-    fetch(`http://localhost:5000/user/allPost/${Id}`, {
+    fetch(`https://backend-insta-deploy.onrender.com/user/allPost/${Id}`, {
     
       headers: {
         'Authorization': localStorage.getItem('Token'),
@@ -24,7 +24,7 @@ function UserProfile() {
 
   const followerFun= ()=>{
     
-      fetch(`http://localhost:5000/user/follow/${Id}`, {
+      fetch(`https://backend-insta-deploy.onrender.com/user/follow/${Id}`, {
         method:"PATCH",
         headers: {
           'Authorization': localStorage.getItem('Token'),
@@ -40,7 +40,7 @@ function UserProfile() {
   }
   const unfollowFun =()=>{
     
-    fetch(`http://localhost:5000/user/unfollow/${Id}`, {
+    fetch(`https://backend-insta-deploy.onrender.com/user/unfollow/${Id}`, {
       method:"PATCH",
       headers: {
         'Authorization': localStorage.getItem('Token'),

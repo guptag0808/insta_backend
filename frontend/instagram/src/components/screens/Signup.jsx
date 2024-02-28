@@ -20,7 +20,7 @@ function Signup() {
     }else if(!passwordRegex.test(password)){
       return M.toast({html: ' Your Password should have Atleast 8 characters, at least one uppercase letter, one lowercase letter, one number, and one special character' ,classes:'#b71c1c red darken-4'})
     }
-    fetch("http://localhost:5000/auth/signup",{
+    fetch("https://backend-insta-deploy.onrender.com/auth/signup",{
       method:"POST",
       headers:{
         "Content-Type":"application/json"
