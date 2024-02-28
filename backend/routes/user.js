@@ -13,7 +13,7 @@ userProfile.get("/allPost/:Id", authentication, async (req, res) => {
 	  const userPosts = await PostModel.find({ postedBy: requestedUserId })
       console.log(userPosts)
 	  if (!userPosts || userPosts.length === 0) {
-		return res.status(200).json({ msg: [] });
+		return res.status(200).json({ user});
 	  }
   
 	  res.status(200).json({ user, userPosts });
@@ -31,69 +31,66 @@ userProfile.patch("/follow/:followerId", authentication, async (req, res) => {
 	const followerId = req.params.followerId;
   
 	try {
-	  const follower = await UserModel.findOne({ _id: followerId });
-	  const following = await UserModel.findOne({ _id: userId });
+	  const follower = await UserModel.findById(followerId);
+	  const following = await UserModel.findById(userId);
   
 	  const isFollower = follower.followers.includes(userId);
   
 	  if (!isFollower) {
-		const updatedFollower = await UserModel.findByIdAndUpdate(
-		  followerId,
-		  { $push: { followers: userId } },
-		  { new: true }
-		);
+		follower.followers.push(userId);
+		await follower.save();
 	  }
   
 	  if (following) {
-		const updatedFollowing = await UserModel.findByIdAndUpdate(
-		  userId,
-		  { $push: { following: followerId } },
-		  { new: true }
-		);
+		following.following.push(followerId);
+		await following.save();
 	  }
   
-	  res.status(200).json({ follower, following });
+	  // Fetch the updated documents after saving changes
+	  const updatedFollower = await UserModel.findById(followerId);
+	  const updatedFollowing = await UserModel.findById(userId);
+  
+	  res.status(200).json({ follower: updatedFollower, following: updatedFollowing });
 	} catch (err) {
 	  console.error(err.message);
 	  res.status(500).json({ msg: err.message });
 	}
   });
   
+  
 
   // for unFollow
-  userProfile.patch("/follow/:followerId", authentication, async (req, res) => {
+  userProfile.patch("/unfollow/:followerId", authentication, async (req, res) => {
 	const userId = req.userId;
 	const followerId = req.params.followerId;
   
 	try {
-	  const follower = await UserModel.findOne({ _id: followerId, followers: userId });
-	  const following = await UserModel.findOne({ _id: userId, following: followerId });
-	  console.log(follower)
+	  const follower = await UserModel.findById(followerId);
+	  const following = await UserModel.findById(userId);
   
-	  if (!follower) {
-		const user = await UserModel.findByIdAndUpdate(
-		  followerId,
-		  { $pull: { followers: userId } },
-		  { new: true }
-		);
+	  const isFollower = follower.followers.includes(userId);
+  
+	  if (isFollower) {
+		follower.followers.pull(userId);
+		await follower.save(); 
 	  }
   
-	  if (!following) {
-		const loginUser = await UserModel.findByIdAndUpdate(
-		  userId,
-		  { $pull: { following: followerId } },
-		  { new: true }
-		);
+	  if (following) {
+		following.following.pull(followerId); 
+		await following.save();
 	  }
   
-	  res.status(200).json({ follower,following });
+	  // Fetch the updated documents after saving changes
+	  const updatedFollower = await UserModel.findById(followerId);
+	  const updatedFollowing = await UserModel.findById(userId);
   
+	  res.status(200).json({ follower: updatedFollower, following: updatedFollowing });
 	} catch (err) {
 	  console.error(err.message);
 	  res.status(500).json({ msg: err.message });
 	}
   });
-  module.exports = userProfile;
+  
 
 
 

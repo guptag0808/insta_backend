@@ -17,7 +17,7 @@ function Profile() {
     })    
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        console.log(data,"setProfile data")
         setProfile(data);
       });
   }, []); // Empty dependency array to run the effect only once on mount
@@ -48,7 +48,7 @@ function Profile() {
               <h4>{userProfile.user.name} </h4>
               <h5>{userProfile.user.email} </h5>
             <div style={{ display: 'flex', justifyContent: 'space-around', width: '110%' }}>
-              <h6>{userProfile.userPosts.length} Post</h6>
+              <h6>{userProfile.userPosts ?userProfile.userPosts.length : "0" } Post</h6>
               <h6>{userProfile.user.followers.length} Followers</h6>
               <h6>{userProfile.user.following.length} Following</h6>
             </div>  
@@ -58,10 +58,10 @@ function Profile() {
         </div>
       </div>
       <div className='gallery'>
-        {userProfile.userPosts.map((item) => (
+        {userProfile.userPosts ? userProfile.userPosts.map((item) => (
           <img key={item._id} className='galleryPhotos' src={item.photo} alt={item.title} />
           
-        ))}
+        )) : ""}
       </div>
     </div>
 : <h1 style={{display:'flex', justifyContent:"center"}}>...Loding</h1>}

@@ -1,15 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
 *{
-	font-family: "Micro 5";
+	/* font-family: "Micro 5"; */
 	margin:0%;
 	padding: 0%;
 }
 body{
 	/* background-color: rgb(103, 101, 98); */
-	background-color: rgb(31, 58, 80);
+	
+	background-color: rgb(58, 67, 74);
+	 
 	/* background-color: rgb(104, 119, 132); */
 }
 .nav-wrapper{
+	
     background-color: rgb(69, 81, 91);
 
 }.h4-h6{

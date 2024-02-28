@@ -6,6 +6,7 @@ import Profile from './components/screens/Profile';
 import Login from './components/screens/Login';
 import Signup from './components/screens/Signup';
 import './App.css';
+import "./index.css"
 import CreatePost from './components/screens/CreatePost';
 import { reducer, initialState } from './reducers/userReducers';
 import UserProfile from './components/screens/UsersProfile';

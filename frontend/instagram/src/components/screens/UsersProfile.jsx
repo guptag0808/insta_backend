@@ -38,6 +38,22 @@ function UserProfile() {
         });
    
   }
+  const unfollowFun =()=>{
+    
+    fetch(`http://localhost:5000/user/unfollow/${Id}`, {
+      method:"PATCH",
+      headers: {
+        'Authorization': localStorage.getItem('Token'),
+      },
+    })    
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        setFollowers(data.follower.followers.length || 1)
+        
+      });
+ 
+}
 
   return (
 <>
@@ -64,13 +80,16 @@ function UserProfile() {
               <h5>{userProfile.user.email} </h5>
             <div style={{ display: 'flex', justifyContent: 'space-around', width: '110%' }}>
               <h6>{userProfile.userPosts.length} Post</h6>
-              <h6>{userProfile.user.followers.length} Followers</h6>
+              <h6>{followers ? followers : userProfile.user.followers.length} Followers</h6>
               <h6>{userProfile.user.following.length} Following</h6>
             </div> 
-            <button className="btn waves-effect waves-light"
+              {userProfile.user.followers.includes(user._id) ? <button className="btn waves-effect waves-light"
+         onClick={unfollowFun} >
+          Unfollow
+       </button> : <button className="btn waves-effect waves-light"
          onClick={followerFun} >
           Follow
-       </button>
+       </button> }
             
           
         </div>
