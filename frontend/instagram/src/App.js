@@ -10,6 +10,7 @@ import "./index.css"
 import CreatePost from './components/screens/CreatePost';
 import { reducer, initialState } from './reducers/userReducers';
 import UserProfile from './components/screens/UsersProfile';
+// import ProfileImg from './components/screens/ProfileImg';
 
 export const UserContext = createContext();
 
@@ -19,7 +20,6 @@ const  Routing = () =>{
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
-    
     if (user) {
       console.log("user is present",user)
       navigate('/');
@@ -37,6 +37,7 @@ const  Routing = () =>{
       <Route path="/profile" element={<Profile />} />
       <Route path="/create" element={<CreatePost />} />
       <Route path="/userProfile/:Id" element={<UserProfile />} />
+      {/* <Route path="/profilePic" element={<ProfileImg />} /> */}
     </Routes>
   );
 }

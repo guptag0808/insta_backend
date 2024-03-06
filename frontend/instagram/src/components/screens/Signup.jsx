@@ -12,7 +12,7 @@ function Signup() {
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   const navigate = useNavigate();
   const navigateToLogin = () => {
-    navigate('/login');
+    navigate('/login'); 
   };
   const postFun=()=>{
     if(!emailRegex.test(email) ){

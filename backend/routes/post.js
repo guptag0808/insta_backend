@@ -29,12 +29,23 @@ postRouter.post('/createpost', authentication, async (req, res) => {
 // get all post
 postRouter.get("/allpost", async (req, res) => {
 	try {
-		const allPost = await PostModel.find().populate("postedBy", "_id name").populate("comments.postedBy","name _id")
+		const allPost = (await PostModel.find().populate("postedBy", "_id name").populate("comments.postedBy","name _id ")).reverse()
 		// console.log(allPost)
 		res.status(200).send({ "msg": allPost })
 
 	} catch (err) {
 		res.send({ "msg": err.message })
+	}
+})
+
+postRouter.delete("/delete/:id", authentication, async (req, res) => {
+	const userId = req.params.id
+	
+	try {
+		const myAllPost = await PostModel.deleteMany({ postedBy: userId });
+		res.status(200).send({ "msg": myAllPost })
+	} catch (err) {
+		res.json(err.message)
 	}
 })
 
@@ -65,13 +76,13 @@ postRouter.put("/like/:id", authentication, async (req, res) => {
 		// If the user has not liked the post, add the user ID to the likes array
 		if (userIndex === -1) {
 			post.likes.push(userID);
-		} else {
+		} else {   
 			// If the user has already liked the post, remove the user ID from the likes array
 			post.likes.splice(userIndex, 1);
 		}
 		// Save the updated post to the database
 		await post.save();
-		const allPost = await PostModel.find().populate("comments.postedBy","name _id").populate("postedBy","name _id")
+		const allPost =  (await PostModel.find().populate("comments.postedBy","name _id").populate("postedBy","name _id")).reverse()
 		// Send the updated post back to the client
 		res.status(200).send({ "msg": allPost });
 	} catch (err) {

@@ -64,7 +64,7 @@ function CreatePost() {
 		})
 	}
 
-	//calling createPost routes
+	
 	
   return (
 	<div className='card input-field' style={{
