@@ -37,7 +37,7 @@ function Profile() {
 
   const setProfileFun = () => {
 
-    fetch("https://backend-insta-deploy.onrender.com/user/profilePic", {
+    fetch("https://grumpy-bee-pinafore.cyclic.app/user/profilePic", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ function Profile() {
   }
    
   const removeProfile = ()=>{
-    fetch("https://backend-insta-deploy.onrender.com/user/remove", {
+    fetch("https://grumpy-bee-pinafore.cyclic.app/user/remove", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
