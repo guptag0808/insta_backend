@@ -107,7 +107,7 @@ function Profile() {
           >
             <div className='profile_div_image'  style={{ width: '160px', height: '160px', borderRadius: '50%',backgroundColor:"green" }}>
               <img
-                style={{ width:"100%", borderRadius:"50%" }}
+                style={{ width:"100%",height:"100%", borderRadius:"50%" }}
                 src={url ? url : userProfile.user.profilePic}
                 alt='profile pic'
               />

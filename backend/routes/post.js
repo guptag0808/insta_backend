@@ -29,7 +29,7 @@ postRouter.post('/createpost', authentication, async (req, res) => {
 // get all post
 postRouter.get("/allpost", async (req, res) => {
 	try {
-		const allPost = (await PostModel.find().populate("postedBy", "_id name").populate("comments.postedBy","name _id ")).reverse()
+		const allPost = (await PostModel.find().populate("postedBy", "_id name").populate("comments.postedBy","name _id profilePic")).reverse()
 		// console.log(allPost)
 		res.status(200).send({ "msg": allPost })
 
