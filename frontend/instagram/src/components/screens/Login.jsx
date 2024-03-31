@@ -13,7 +13,7 @@ function Login() {
   };
   const postFun=()=>{
     
-    fetch("http://localhost:5000/auth/login",{
+    fetch("https://grumpy-bee-pinafore.cyclic.app/auth/login",{
       method:"POST",
       headers:{
         "Content-Type":"application/json"

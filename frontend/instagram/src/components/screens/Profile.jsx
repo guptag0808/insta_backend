@@ -9,7 +9,7 @@ function Profile() {
   const Id= user._id
 
   useEffect(() => {
-    fetch(`http://localhost:5000/user/allPost/${Id}`, {
+    fetch(`https://grumpy-bee-pinafore.cyclic.app/user/allPost/${Id}`, {
     
       headers: {
         'Authorization': localStorage.getItem('Token'),
