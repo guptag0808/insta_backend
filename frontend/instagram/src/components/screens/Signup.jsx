@@ -12,7 +12,7 @@ function Signup() {
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   const navigate = useNavigate();
   const navigateToLogin = () => {
-    navigate('/login');
+    navigate('/login'); 
   };
   const postFun=()=>{
     if(!emailRegex.test(email) ){
@@ -20,7 +20,7 @@ function Signup() {
     }else if(!passwordRegex.test(password)){
       return M.toast({html: ' Your Password should have Atleast 8 characters, at least one uppercase letter, one lowercase letter, one number, and one special character' ,classes:'#b71c1c red darken-4'})
     }
-    fetch("https://grumpy-bee-pinafore.cyclic.app/auth/signup",{
+    fetch("http://localhost:5000/auth/signup",{
       method:"POST",
       headers:{
         "Content-Type":"application/json"

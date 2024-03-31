@@ -20,7 +20,7 @@ function UserProfile() {
         console.log(data)
         setProfile(data);
       });
-  }, []); // Empty dependency array to run the effect only once on mount
+  }, [followers]); // Empty dependency array to run the effect only once on mount
 
   const followerFun= ()=>{
     
@@ -31,16 +31,17 @@ function UserProfile() {
         },
       })    
         .then((res) => res.json())
-        .then((data) => {
-          console.log(data)
+        .then((data) => {  
+          console.log(data) 
           setFollowers(data.follower.followers.length || 1)
           
         });
    
   }
   const unfollowFun =()=>{
-    
-    fetch(`https://grumpy-bee-pinafore.cyclic.app/unfollow/${Id}`, {
+
+    fetch(`https://grumpy-bee-pinafore.cyclic.app/user/unFollow/${Id}`, {
+
       method:"PATCH",
       headers: {
         'Authorization': localStorage.getItem('Token'),
@@ -48,8 +49,8 @@ function UserProfile() {
     })    
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
-        setFollowers(data.follower.followers.length || 1)
+        // console.log(data.follower.followers.length)
+        setFollowers(data.follower.followers.length)
         
       });
  

@@ -15,7 +15,14 @@ body{
 	
     background-color: rgb(69, 81, 91);
 
-}.h4-h6{
+}
+.nav-wrapper ul {
+	
+    padding: 0px;
+    margin:0 1rem;
+}
+
+.h4-h6{
 	color: aliceblue;
 }
 .brand-logo, h1{
@@ -23,10 +30,8 @@ font-family: 'Grand Hotel', 'cursive';
 };
 .myCard{
 	margin-top: 10px ;
-	
 }
 .login-card{
-	
 	text-align: center;
 	padding:20px;
 	max-width: 400px;
@@ -52,10 +57,7 @@ font-family: 'Grand Hotel', 'cursive';
 	height: 200px;
 
 }
-#postName{
-	color:black  ;
 
-}
 /* Home section  */
 
 .home-card{
@@ -65,14 +67,27 @@ font-family: 'Grand Hotel', 'cursive';
  
 }
 .abcd{
-	background-color: 'red' !important ;
-	border: "2 px solid red";
+	background: #f8f5f5;
 	cursor: pointer;
+}
+
+.red-heart{
+	
+	font-size: 24px; /* Set the initial font size as needed */
+	transition: opacity 0.3s ease, transform 0.3s ease;
+	color:red;
+	
+}
+.red-heart:hover{
+	cursor: pointer;
+	opacity: 0.8;
+	color: red;
+	transform: scale(1.5);
 }
 .commentInput{
 	display: flex;
 }
 .deleteComment:hover{
 	float: 'right';
-	cursor: 'pointer'
-}
+	cursor: 'pointer';
+} 

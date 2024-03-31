@@ -13,7 +13,7 @@ function Home() {
          }
       })
          .then(res => res.json())
-         .then((data) => {
+         .then((data) => {  
             console.log(data.msg)
             setData(data.msg)
          })
@@ -29,15 +29,10 @@ function Home() {
       })
          .then(res => res.json())
          .then((data) => {
-            console.log(data.msg)
             setData(data.msg)
          })
    }
 
-   const isPostLiked = (id) => {
-      const likedPost = data.find((item) => item._id === id)
-      return likedPost && likedPost.likes.length > 0;
-   };
 
    //  for comments
    const commentFun = (id, comment) => {
@@ -69,12 +64,7 @@ function Home() {
          })
    }
 
-   // const handleSubmit = (e, postId) => {
-   //    e.preventDefault();
-   //    const inputValue = e.target[0].value;
 
-   //    commentFun(postId, inputValue);
-   // };
    const handleSubmit = (postId) => {
 
       const inputValue = comment;
@@ -109,7 +99,7 @@ function Home() {
    // delete comments
    const deleteCommentFun = (postId, commentId) => {
       console.log(postId, commentId)
-      fetch(`insta-backend-gd2b.vercel.app/post/comment/${postId}/${commentId}`, {
+      fetch(`https://grumpy-bee-pinafore.cyclic.app/post/comment/${postId}/${commentId}`, {
          method: 'DELETE',
          headers: {
             Authorization: localStorage.getItem('Token'),
@@ -133,22 +123,25 @@ function Home() {
             data.map((items) => {
                return (
                   <div className='card home-card' key={items._id}>
-                     <h5 id='postName' style={{ marginLeft: "15px", color: "black" }}>
-                        <Link to={`userProfile/${items.postedBy._id}`}>{items.postedBy.name}</Link> {items.postedBy._id === user._id &&
-                           <i className="material-icons sendIcon" style={{ float: "right", cursor: "pointer" }} onClick={() => {
+                     <div style={{ width: "3rem", position: "absolute", margin: "4px 8px", height: "3rem", borderRadius: "50%", border: "2px solid red" }}>
+                       <img src={items.postedBy.profilePic} alt="" />
+                     </div>
+                     <h5 id='postName' style={{ marginLeft: "60px", fontSize: "1.33rem", marginBottom: "13px", lineHeight: "145%", paddingTop: "13px" }}>
+                        <Link style={{ color: "#596469" }} to={`userProfile/${items.postedBy._id}`}>{items.postedBy.name}</Link> {items.postedBy._id === user._id &&
+                           <i className="material-icons " style={{ float: "right", cursor: "pointer" }} onClick={() => {
                               deleteFun(items._id)
                            }} >delete</i>
                         }
 
                      </h5>
-                     <div>
+                     <div className='img-div' onDoubleClick={() => likeFun(items._id)} >
                         <img width="100%" src={items.photo} alt="" />
                      </div>
                      <div className='card-content'>
-                        <i className={`material-icons abcd ${isPostLiked(items._id) ? 'red-heart' : ''}`}
+                        <i className={`material-icons  ${items.likes.includes(user._id) ? 'red-heart' : 'black-heart'}`}
                            onClick={() => {
                               likeFun(items._id)
-                           }} >favorite_border</i>
+                           }} >{items.likes.includes(user._id) ? 'favorite' : 'favorite_border'}</i>
                         <h6>likes {items.likes.length}</h6>
                         <h6>{items.title}</h6>
                         <p>{items.body}</p>

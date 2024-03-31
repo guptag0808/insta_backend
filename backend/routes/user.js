@@ -6,9 +6,7 @@ const { authentication } = require('../middleware/authentication')
 
 userProfile.get("/allPost/:Id", authentication, async (req, res) => {
 	const requestedUserId = req.params.Id;
-	const userId = req.userId;
-  console.log(requestedUserId)  
-	try { 
+      try { 
 	  const user = await UserModel.findById( requestedUserId )
 	  const userPosts = await PostModel.find({ postedBy: requestedUserId })
       console.log(userPosts)
@@ -40,8 +38,8 @@ userProfile.patch("/follow/:followerId", authentication, async (req, res) => {
 		follower.followers.push(userId);
 		await follower.save();
 	  }
-  
-	  if (following) {
+	  const checkFollowOrNOt= following.following.includes(followerId)
+	  if (!checkFollowOrNOt) {
 		following.following.push(followerId);
 		await following.save();
 	  }
@@ -83,7 +81,7 @@ userProfile.patch("/follow/:followerId", authentication, async (req, res) => {
 	  // Fetch the updated documents after saving changes
 	  const updatedFollower = await UserModel.findById(followerId);
 	  const updatedFollowing = await UserModel.findById(userId);
-  
+      
 	  res.status(200).json({ follower: updatedFollower, following: updatedFollowing });
 	} catch (err) {
 	  console.error(err.message);
@@ -91,8 +89,40 @@ userProfile.patch("/follow/:followerId", authentication, async (req, res) => {
 	}
   });
   
+// add profile Image
+userProfile.patch("/profilePic", authentication, async (req, res) => {
+	const userId = req.userId; 
+	const {profilePic} = req.body
+	console.log(profilePic) 
+	try {
+		const updatedUser = await UserModel.findByIdAndUpdate(
+			userId,
+			{ $set: { profilePic: profilePic } },
+			{ new: true }
+		  );
 
+	  res.status(200).json({updatedUser});
+	} catch (err) {
+	  console.error(err.message);
+	  res.status(500).json({ msg: err.message });
+	}
+  });
 
+  //delete profilePic
+
+  userProfile.patch("/remove",authentication,async(req,res)=>{
+	const userId = req.userId;
+      try{
+		const user= await UserModel.findByIdAndUpdate(
+			userId,
+			{ $set: { profilePic: ""} },
+			{ new: true }
+		  );
+		res.status(200).send({"msg":"Profile Photo Removed"})
+	  }catch(err){
+		res.status(500).json({msg:err.message})
+	}
+  })
 
 module.exports={
 	userProfile

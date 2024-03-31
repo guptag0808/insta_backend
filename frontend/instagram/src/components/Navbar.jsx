@@ -6,7 +6,7 @@ import { UserContext } from "../App";
 
 function Navbar() {
   const user = JSON.parse(localStorage.getItem('user'))
-  console.log(user,"this is user")
+  console.log(user,"user is there Navbar Call")
   const {state,dispatch}= useContext(UserContext)
   const navigate = useNavigate();
 
@@ -17,22 +17,17 @@ function Navbar() {
   };
 
   const renderList = () => {
-    console.log(state ,"this is state")
     if (user) {
-     
-      return [
-        
-         <li><Link to="/profile">Profile</Link></li>,
+     return [
+        <li><Link to="/profile">Profile</Link></li>,
           <li><Link to="/create">Create Post</Link></li>,
           <li>
             <button className="btn waves-effect waves-light" onClick={logoutFun}>
               Logout
             </button>
           </li>
-       
-      ]
-      
-    } else {
+       ]
+      } else {
       return [
         <li><Link to="/login">Login</Link></li>,
           <li><Link to="/signup">Signup</Link></li>
@@ -44,9 +39,9 @@ function Navbar() {
     <nav>
       <div className="nav-wrapper">
         <Link to={user ? "/" : "/login"} className="brand-logo left">
-          InstaFlick
+          FotoFlick
         </Link>
-        <ul id="nav-mobile" className="right hide-on-med-and-down">
+        <ul id="nav-mobile" className="right ">
           {renderList()}
         </ul>
       </div>

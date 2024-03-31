@@ -11,6 +11,7 @@ function CreatePost() {
    useEffect(()=>{
       if(url){
 		  fetch("https://grumpy-bee-pinafore.cyclic.app/post/createpost",{
+
 		  method:"post",
 		  headers:{
 			"Content-Type":"application/json",
@@ -64,7 +65,7 @@ function CreatePost() {
 		})
 	}
 
-	//calling createPost routes
+	
 	
   return (
 	<div className='card input-field' style={{
