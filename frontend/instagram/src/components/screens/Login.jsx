@@ -40,7 +40,7 @@ function Login() {
   return (
 	<div className='myCard'>
      <div className="card login-card" >
-        <h1>FotoFlick</h1>
+        <h1>FotoFlick</h1> 
         <input type="text"  placeholder='Enter Your Email'
          value={email} 
          onChange={(e)=>setEmail(e.target.value) }/>

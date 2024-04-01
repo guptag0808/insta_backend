@@ -2,3 +2,14 @@
 	color:rgb(48, 153, 245);
 	border:2px solid red;
 }
+.profileImg{
+	width: 100%;
+	border-radius: 50%;
+	height: 100%;
+	transition: transform 2s ease;
+
+}
+.profileImg:hover{
+    z-index: 1;
+    transform: scale(1.5)
+}

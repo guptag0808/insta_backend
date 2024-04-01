@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import "../style/home.css"
 
 function Home() {
    const [data, setData] = useState([])
@@ -22,7 +23,7 @@ function Home() {
    const likeFun = (id) => {
       fetch(`https://grumpy-bee-pinafore.cyclic.app/post/like/${id}`, {
          method: 'PUT',
-         headers: {
+         headers: {  
 
             "Authorization": localStorage.getItem("Token")
          }
@@ -124,7 +125,7 @@ function Home() {
                return (
                   <div className='card home-card' key={items._id}>
                      <div style={{ width: "3rem", position: "absolute", margin: "4px 8px", height: "3rem", borderRadius: "50%", border: "2px solid red" }}>
-                       <img src={items.postedBy.profilePic} alt="" />
+                       <img className='profileImg' width="100%" src={items.postedBy.profilePic} alt="" />
                      </div>
                      <h5 id='postName' style={{ marginLeft: "60px", fontSize: "1.33rem", marginBottom: "13px", lineHeight: "145%", paddingTop: "13px" }}>
                         <Link style={{ color: "#596469" }} to={`userProfile/${items.postedBy._id}`}>{items.postedBy.name}</Link> {items.postedBy._id === user._id &&
