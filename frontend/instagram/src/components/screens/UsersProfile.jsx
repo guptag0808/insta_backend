@@ -17,10 +17,9 @@ function UserProfile() {
     })    
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setProfile(data);
       });
-  }, [followers]); // Empty dependency array to run the effect only once on mount
+  }, [followers]); 
 
   const followerFun= ()=>{
     
@@ -72,8 +71,7 @@ function UserProfile() {
         <div>
           <img
             style={{ width: '160px', height: '160px', borderRadius: '100px' }}
-            src='https://media.istockphoto.com/id/483614130/photo/walking-with-retriever.webp?b=1&s=170667a&w=0&k=20&c=6KXMplPsXCLLxivYHNfJsZ3WBTfkBYfjvMQTuUjxVTs='
-            alt='profile pic'
+            src={setProfile.user.profilePic}
           />
         </div>
         <div className='h4-h6'>

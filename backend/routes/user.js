@@ -9,7 +9,7 @@ userProfile.get("/allPost/:Id", authentication, async (req, res) => {
       try { 
 	  const user = await UserModel.findById( requestedUserId )
 	  const userPosts = await PostModel.find({ postedBy: requestedUserId })
-      console.log(userPosts)
+    
 	  if (!userPosts || userPosts.length === 0) {
 		return res.status(200).json({ user});
 	  }

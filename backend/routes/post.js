@@ -30,7 +30,6 @@ postRouter.post('/createpost', authentication, async (req, res) => {
 postRouter.get("/allpost", async (req, res) => {
 	try {
 		const allPost = (await PostModel.find().populate("postedBy", "_id name profilePic").populate("comments.postedBy","name _id profilePic")).reverse()
-		// console.log(allPost)
 		res.status(200).send({ "msg": allPost })
 
 	} catch (err) {
@@ -82,7 +81,7 @@ postRouter.put("/like/:id", authentication, async (req, res) => {
 		}
 		// Save the updated post to the database
 		await post.save();
-		const allPost =  (await PostModel.find().populate("comments.postedBy","name _id").populate("postedBy","name _id")).reverse()
+		const allPost =  (await PostModel.find().populate("comments.postedBy","name _id").populate("postedBy","name _id profilePic" )).reverse()
 		// Send the updated post back to the client
 		res.status(200).send({ "msg": allPost });
 	} catch (err) {
@@ -95,17 +94,15 @@ postRouter.put("/like/:id", authentication, async (req, res) => {
 postRouter.put("/comment/:id", authentication, async (req, res) => {
 	const postId = req.params.id;
 	const { comment } = req.body;
-	console.log(comment)
 	const userId = req.userId;
 	const data = { comment, postedBy: userId };
    
 	try {
-	  // Use the `await` keyword to wait for the update operation to complete
 	  const post = await PostModel.findByIdAndUpdate(
 		postId,
 		{ $push: { comments: data } },
 		{ new: true } // To get the updated document after the update operation
-	  ).populate("comments.postedBy","name _id").populate("postedBy" ,"name _id")
+	  ).populate("comments.postedBy","name _id").populate("postedBy" ,"name _id profilePic")
 	  
        console.log(post)
 	  // Send the updated post with comments populated back to the client
@@ -116,6 +113,8 @@ postRouter.put("/comment/:id", authentication, async (req, res) => {
 	}
   });
   
+// delete post if the post is posted by login user
+
   postRouter.delete("/delete/:id", authentication, async (req, res) => {
 	const userId = req.userId;
 	const postId = req.params.id;
@@ -167,7 +166,7 @@ postRouter.put("/comment/:id", authentication, async (req, res) => {
 		// Delete the comment
 		post.comments.splice(commentIndex, 1);
 		await post.save();
-		const allPost = await PostModel.find().populate("postedBy", "_id name").populate("comments.postedBy","name _id")
+		const allPost = (await PostModel.find().populate("postedBy", "_id name profilePic").populate("comments.postedBy","name _id ")).reverse()
 		res.status(200).json({ msg: "Comment deleted successfully", "post":allPost});
 	  } else {
 		res.status(403).json({ error: "You are not authorized to delete this comment" });
