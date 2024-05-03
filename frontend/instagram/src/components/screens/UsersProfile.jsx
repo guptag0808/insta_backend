@@ -17,6 +17,7 @@ function UserProfile() {
     })    
       .then((res) => res.json())
       .then((data) => {
+        console.log(data)
         setProfile(data);
       });
   }, [followers]); 
@@ -71,7 +72,7 @@ function UserProfile() {
         <div>
           <img
             style={{ width: '160px', height: '160px', borderRadius: '100px' }}
-            src={setProfile.user.profilePic}
+            src={userProfile.user.profilePic}
           />
         </div>
         <div className='h4-h6'>
