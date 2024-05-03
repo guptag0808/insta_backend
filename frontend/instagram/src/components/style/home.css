@@ -2,13 +2,7 @@
 	color:rgb(48, 153, 245);
 	border:2px solid red;
 }
-.homeContainer{
-	background-image: url('https://img.pikbest.com/ai/illus_our/20230427/8092927fc07f64ba0b61d3a1f0c1f13c.jpg!w700wp');
-	background-size: cover; 
-    background-repeat: no-repeat;
-    background-position: center;
-     height: 100vh;
-}
+
 .profileImg{
 	width: 100%;
 	border-radius: 50%;
