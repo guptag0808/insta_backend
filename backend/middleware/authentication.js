@@ -13,8 +13,7 @@ const authentication  =async(req,res,next)=>{
 			const user = await UserModel.findById(userId)
 			 req.userId=userId
 			 req.user  = user
-			
-		}
+			}
 		next()
 
 	}catch(err){
