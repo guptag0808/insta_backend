@@ -7,7 +7,7 @@ function Home() {
    const [comment, setComment] = useState("")
    const user = JSON.parse(localStorage.getItem("user"))
     useEffect(() => {
-      fetch('https://grumpy-bee-pinafore.cyclic.app/post/allPost', {
+      fetch('https://backend-insta-deploy.onrender.com/post/allPost', {
          method: 'GET',
          headers: {
             "Authorization": localStorage.getItem("Token")
@@ -21,7 +21,7 @@ function Home() {
    }, [])
 
    const likeFun = (id) => {
-      fetch(`https://grumpy-bee-pinafore.cyclic.app/post/like/${id}`, {
+      fetch(`https://backend-insta-deploy.onrender.com/post/like/${id}`, {
          method: 'PUT',
          headers: {  
 
@@ -38,7 +38,7 @@ function Home() {
    //  for comments
    const commentFun = (id, comment) => {
 
-      fetch(`https://grumpy-bee-pinafore.cyclic.app/post/comment/${id}`, {
+      fetch(`https://backend-insta-deploy.onrender.com/post/comment/${id}`, {
          method: 'PUT',
          headers: {
             "Authorization": localStorage.getItem("Token"),
@@ -77,7 +77,7 @@ function Home() {
    //  for delete
    const deleteFun = (id) => {
 
-      fetch(`https://grumpy-bee-pinafore.cyclic.app/post/delete/${id}`, {
+      fetch(`https://backend-insta-deploy.onrender.com/post/delete/${id}`, {
          method: 'DELETE',
          headers: {
             "Authorization": localStorage.getItem("Token"),
@@ -100,7 +100,7 @@ function Home() {
    // delete comments
    const deleteCommentFun = (postId, commentId) => {
       console.log(postId, commentId)
-      fetch(`https://grumpy-bee-pinafore.cyclic.app/post/comment/${postId}/${commentId}`, {
+      fetch(`https://backend-insta-deploy.onrender.com/post/comment/${postId}/${commentId}`, {
          method: 'DELETE',
          headers: {
             Authorization: localStorage.getItem('Token'),

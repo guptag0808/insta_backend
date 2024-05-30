@@ -13,7 +13,7 @@ function Login() {
   };
   const postFun=()=>{
     
-    fetch("https://grumpy-bee-pinafore.cyclic.app/auth/login",{
+    fetch("https://backend-insta-deploy.onrender.com/auth/login",{
       method:"POST",
       headers:{
         "Content-Type":"application/json"

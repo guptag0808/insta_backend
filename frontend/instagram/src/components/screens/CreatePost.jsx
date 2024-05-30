@@ -10,7 +10,7 @@ function CreatePost() {
 
    useEffect(()=>{
       if(url){
-		  fetch("https://grumpy-bee-pinafore.cyclic.app/post/createpost",{
+		  fetch("https://backend-insta-deploy.onrender.com/post/createpost",{
 
 		  method:"post",
 		  headers:{

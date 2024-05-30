@@ -22,7 +22,7 @@ function Profile() {
 
   useEffect(() => {
 
-    fetch(`https://grumpy-bee-pinafore.cyclic.app/user/allPost/${Id}`, {
+    fetch(`https://backend-insta-deploy.onrender.com/user/allPost/${Id}`, {
 
       headers: {
         'Authorization': localStorage.getItem('Token'),
@@ -39,7 +39,7 @@ function Profile() {
 
   const setProfileFun = () => {
 
-    fetch("https://grumpy-bee-pinafore.cyclic.app/user/profilePic", {
+    fetch("https://backend-insta-deploy.onrender.com/user/profilePic", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +56,7 @@ function Profile() {
   }
    
   const removeProfile = ()=>{
-    fetch("https://grumpy-bee-pinafore.cyclic.app/user/remove", {
+    fetch("https://backend-insta-deploy.onrender.com/user/remove", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

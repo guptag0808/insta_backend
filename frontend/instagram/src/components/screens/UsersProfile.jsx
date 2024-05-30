@@ -9,7 +9,7 @@ function UserProfile() {
  
 
   useEffect(() => {
-    fetch(`https://grumpy-bee-pinafore.cyclic.app/user/allPost/${Id}`, {
+    fetch(`https://backend-insta-deploy.onrender.com/user/allPost/${Id}`, {
     
       headers: {
         'Authorization': localStorage.getItem('Token'),
@@ -24,7 +24,7 @@ function UserProfile() {
 
   const followerFun= ()=>{
     
-      fetch(`https://grumpy-bee-pinafore.cyclic.app/user/follow/${Id}`, {
+      fetch(`https://backend-insta-deploy.onrender.com/user/follow/${Id}`, {
         method:"PATCH",
         headers: {
           'Authorization': localStorage.getItem('Token'),
@@ -40,7 +40,7 @@ function UserProfile() {
   }
   const unfollowFun =()=>{
 
-    fetch(`https://grumpy-bee-pinafore.cyclic.app/user/unFollow/${Id}`, {
+    fetch(`https://backend-insta-deploy.onrender.com/user/unFollow/${Id}`, {
 
       method:"PATCH",
       headers: {
