@@ -10,7 +10,7 @@ function CreatePost() {
 
    useEffect(()=>{
       if(url){
-		  fetch("https://backend-insta-deploy.onrender.com/post/createpost",{
+		  fetch("https://insta-backend-dj06.onrender.com/post/createpost",{
 
 		  method:"post",
 		  headers:{

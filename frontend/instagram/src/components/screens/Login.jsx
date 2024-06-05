@@ -13,7 +13,7 @@ function Login() {
   };
   const postFun=()=>{
     
-    fetch("https://backend-insta-deploy.onrender.com/auth/login",{
+    fetch("https://insta-backend-dj06.onrender.com/auth/login",{
       method:"POST",
       headers:{
         "Content-Type":"application/json"

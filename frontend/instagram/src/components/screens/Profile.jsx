@@ -22,7 +22,7 @@ function Profile() {
 
   useEffect(() => {
 
-    fetch(`https://backend-insta-deploy.onrender.com/user/allPost/${Id}`, {
+    fetch(`https://insta-backend-dj06.onrender.com/user/allPost/${Id}`, {
 
       headers: {
         'Authorization': localStorage.getItem('Token'),
@@ -39,7 +39,7 @@ function Profile() {
 
   const setProfileFun = () => {
 
-    fetch("https://backend-insta-deploy.onrender.com/user/profilePic", {
+    fetch("https://insta-backend-dj06.onrender.com/user/profilePic", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +56,7 @@ function Profile() {
   }
    
   const removeProfile = ()=>{
-    fetch("https://backend-insta-deploy.onrender.com/user/remove", {
+    fetch("https://insta-backend-dj06.onrender.com/user/remove", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
